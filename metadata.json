@@ -1,0 +1,5 @@
+{
+  "name": "Galaxies: The Expanse - Fleet Command",
+  "description": "A digital companion and tactical interface for the 4X board game Galaxies: The Expanse. Manage resources, design ship blueprints, navigate the hex map, and track the tech tree.",
+  "requestFramePermissions": []
+}
