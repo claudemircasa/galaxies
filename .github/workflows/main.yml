@@ -3,10 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Ou 'master', verifique o nome do seu branch principal
+      - main
 
 permissions:
-  contents: write # Permissão obrigatória para gravar no branch gh-pages
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -20,18 +20,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # Cache removido para evitar erro quando não existe package-lock.json
+          # cache: 'npm'
 
       - name: Instalar dependências
+        # Usamos 'npm install' em vez de 'npm ci' porque o 'ci' exige o package-lock.json
         run: npm install
 
       - name: Build do Projeto
         run: npm run build
-        # O Vite gera os arquivos na pasta 'dist' por padrão
 
       - name: Deploy para o branch gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # IMPORTANTE: Vite usa 'dist', não 'build'
+          folder: dist
           branch: gh-pages
-          clean: true # Remove arquivos antigos do branch de deploy
+          clean: true
