@@ -1,18 +1,37 @@
-name: Build and Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main  # Ou 'master', verifique o nome do seu branch principal
+
+permissions:
+  contents: write # Permissão obrigatória para gravar no branch gh-pages
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
 
-    - name: Build and Deploy React app to GitHub Pages
-      uses: omkartapale/react-deployment-gh-pages@v1.0.0
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build do Projeto
+        run: npm run build
+        # O Vite gera os arquivos na pasta 'dist' por padrão
+
+      - name: Deploy para o branch gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # IMPORTANTE: Vite usa 'dist', não 'build'
+          branch: gh-pages
+          clean: true # Remove arquivos antigos do branch de deploy
