@@ -117,7 +117,7 @@ const ShipCard: React.FC<{
       </div>
 
       {/* Visual Representation of the Ship with Interactive Slots */}
-      <div className="flex flex-col items-center py-4 relative z-10">
+      <div className={`flex flex-col items-center py-4 relative ${selectedSlot !== null ? 'z-30' : 'z-10'}`}>
          {/* Simplified visual of a ship hull */}
          <div className="relative flex items-center justify-center mb-6">
             {ship.type === ShipType.Interceptor && (
