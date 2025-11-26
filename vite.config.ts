@@ -5,12 +5,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-       // Adicionado para o GitHub Pages (repositório 'galaxies')
-        base: '/galaxies/',
-        // Garante que a pasta de saída seja 'dist' para bater com a GitHub Action
-        build: {
-          outDir: 'dist',
-        },
       server: {
         port: 3000,
         host: '0.0.0.0',
